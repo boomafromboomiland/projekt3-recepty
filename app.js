@@ -7,6 +7,7 @@ HTML vzor, jak vygenerovaný recept vypadá, je zakomentovaný v index.html.*/
 let recepty = document.querySelector('.recepty');
 let i = 0;
 receptyItems.forEach(nacitajZoznam);
+ukazRecept();
 
 function nacitajZoznam() {
   let recept = document.createElement('div');
@@ -56,10 +57,10 @@ function ukazRecept(vybranyRecept) {
   // console.log('Klik na recept');
 
   document.querySelector('#recept-foto').src = receptyItems[index].img;
-  document.querySelector('#recept-kategorie').src = receptyItems[index].kategorie;
-  document.querySelector('#recept-hodnoceni').src = receptyItems[index].hodnoceni;
-  document.querySelector('#recept-nazev').src = receptyItems[index].nadpis;
-  document.querySelector('#recept-popis').src = receptyItems[index].popis;
+  document.querySelector('#recept-kategorie').innerHTML = receptyItems[index].kategorie;
+  document.querySelector('#recept-hodnoceni').innerHTML = receptyItems[index].hodnoceni;
+  document.querySelector('#recept-nazev').innerHTML = receptyItems[index].nadpis;
+  document.querySelector('#recept-popis').innerHTML = receptyItems[index].popis;
 };
 
 // 6) Poslední vybraný recept ulož do Local Storage, aby se při novém otevření aplikace načetl.
