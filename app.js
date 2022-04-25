@@ -31,10 +31,10 @@ function nacitajZoznam() {
   receptInfo.setAttribute('dataI', i);
   recept.appendChild(receptInfo);
 
-  let nadpis = document.createElement('h3');
-  nadpis.innerHTML = receptyItems[i].nadpis;
-  nadpis.setAttribute('dataI', i);
-  receptInfo.appendChild(nadpis);
+  let menoReceptu = document.createElement('h3');
+  menoReceptu.innerHTML = receptyItems[i].nadpis;
+  menoReceptu.setAttribute('dataI', i);
+  receptInfo.appendChild(menoReceptu);
 
   i++;
 
@@ -53,7 +53,13 @@ recept-hodnoceni, recept-nazev, recept-popis. */
 
 function ukazRecept(vybranyRecept) {
   let index = vybranyRecept.target.getAttribute('dataI');
-  console.log('Klik na recept');
+  // console.log('Klik na recept');
+
+  document.querySelector('#recept-foto').src = receptyItems[index].img;
+  document.querySelector('#recept-kategorie').src = receptyItems[index].kategorie;
+  document.querySelector('#recept-hodnoceni').src = receptyItems[index].hodnoceni;
+  document.querySelector('#recept-nazev').src = receptyItems[index].nadpis;
+  document.querySelector('#recept-popis').src = receptyItems[index].popis;
 };
 
 // 6) Poslední vybraný recept ulož do Local Storage, aby se při novém otevření aplikace načetl.
