@@ -4,6 +4,7 @@
 /*1) Do prvku s id="recepty" vygeneruj z dat seznam všech receptů z naší "databáze".
 HTML vzor, jak vygenerovaný recept vypadá, je zakomentovaný v index.html.*/
 
+schovajDiv();
 let recepty = document.querySelector('.recepty');
 let i = 0;
 receptyItems.forEach(nacitajZoznam);
@@ -41,8 +42,13 @@ function nacitajZoznam() {
 
 };
 
+function schovajDiv() {
+  document.getElementById('recept-detail').style.display = 'none';
+};
+
 /*2) Doplň hledání - v hlavičce odkomentuj pole pro hledání. Pri kliknutí na tlačítko Hledat
 by se měl seznam receptů vyfiltrovat podle hledaného slova.*/
+
 
 // 3) Doplň filtrovanání receptů podle kategorie.
 
@@ -53,8 +59,12 @@ Doplň patričné údaje receptu do HTML prvků s ID recept-foto, recept-kategor
 recept-hodnoceni, recept-nazev, recept-popis. */
 
 function ukazRecept(vybranyRecept) {
+  if (vybranyRecept === undefined) {
+    return
+  };
   let index = vybranyRecept.target.getAttribute('dataI');
-  // console.log('Klik na recept');
+  document.getElementById('recept-detail').style.display = 'block';
+  console.log('Klik na recept');
 
   document.querySelector('#recept-foto').src = receptyItems[index].img;
   document.querySelector('#recept-kategorie').innerHTML = receptyItems[index].kategorie;
