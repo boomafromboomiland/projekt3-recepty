@@ -67,7 +67,4 @@ function ukazRecept(id = 0) {
   }
 };
 
-
-
-
 // 6) Poslední vybraný recept ulož do Local Storage, aby se při novém otevření aplikace načetl.

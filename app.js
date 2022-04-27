@@ -4,6 +4,8 @@
 /*1) Do prvku s id="recepty" vygeneruj z dat seznam všech receptů z naší "databáze".
 HTML vzor, jak vygenerovaný recept vypadá, je zakomentovaný v index.html.*/
 
+//!!! STARÝ KÓD !!!
+
 schovajDiv();
 let recepty = document.querySelector('.recepty');
 let i = 0;
