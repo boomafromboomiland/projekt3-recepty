@@ -1,38 +1,43 @@
-/*
+
 //Co je za úkol v tomto projektu:
 
+let receptyInHTML = document.querySelector('#recepty');
+let receptFoto = document.querySelector('#recept-foto');
+let receptKategorie = document.querySelector('#recept-kategorie');
+let receptHodnoceni = document.querySelector('#recept-hodnoceni');
+let receptNazev = document.querySelector('#recept-nazev');
+let receptPopis = document.querySelector('#recept-popis');
+
+function upravPole(recepty = [...receptyItems]) {
+  recepty.innerHTML = '';
+  recepty.forEach((elm) => {
+    nacitajZoznam(elm);
+  })
+
+  ukazRecept();
+};
+
+upravPole();
 /*1) Do prvku s id="recepty" vygeneruj z dat seznam všech receptů z naší "databáze".
 HTML vzor, jak vygenerovaný recept vypadá, je zakomentovaný v index.html.*/
 
-let recepty = document.querySelector('.recepty');
-let receptyHTML = [];
+function nacitajZoznam(elm) {
+  let receptDiv = document.createElement('div');
+  receptDiv.classList.add('recept');
 
-
-receptyItems.forEach((elm) => {
-  nacitajZoznam(elm);
-});
-
-function nacitajZoznam() {
-  let recept = document.createElement('div');
-  recept.className = 'recept';
-  recept.innerHTML = `
+  receptDiv.innerHTML = `
   <div class="recept-obrazek">
-    <img src="${elm.img}" alt="Obrazek">
+    <img src="${elm.img}" alt="Obrazek" />
   </div>
-
   <div class="recept-info">
     <h3>${elm.nadpis}</h3>
   </div>`;
-  recept.addEventListener('click', () => {
-  ukazRecept(elm);
-});
 
-  receptyHTML.push({
-  recept,
-  nadpis: elm.nadpis,
-  hodnoceni: elm.hodnoceni,
-  kategorie: elm.kategorie
-});
+  receptDiv.onclick = () => {
+  ukazRecept(elm.id);
+}
+
+  receptyInHTML.appendChild(receptDiv);
 
 };
 
@@ -48,12 +53,21 @@ by se měl seznam receptů vyfiltrovat podle hledaného slova.*/
 Doplň patričné údaje receptu do HTML prvků s ID recept-foto, recept-kategorie,
 recept-hodnoceni, recept-nazev, recept-popis. */
 
-function ukazRecept(elm = receptyItems[0]) {
-  document.querySelector('#recept-foto').src = elm.img;
-  document.querySelector('#recept-kategorie').innerHTML = elm.kategorie;
-  document.querySelector('#recept-hodnoceni').innerHTML = elm.hodnoceni;
-  document.querySelector('#recept-nazev').innerHTML = elm.nadpis;
-  document.querySelector('#recept-popis').innerHTML = elm.popis;
+function ukazRecept(id = 0) {
+  let elm = receptyItems.find((elm) => {
+    return elm.id == id;
+  });
+  console.log('Klik na recept');
+  if (elm) {
+    receptFoto.src = elm.img;
+    receptKategorie.innerText = elm.kategorie;
+    receptHodnoceni.innerText = elm.hodnoceni;
+    receptNazev.innerText = elm.nadpis;
+    receptPopis.innerText = elm.popis;
+  }
 };
+
+
+
 
 // 6) Poslední vybraný recept ulož do Local Storage, aby se při novém otevření aplikace načetl.
