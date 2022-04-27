@@ -2,22 +2,38 @@
 //Co je za úkol v tomto projektu:
 
 let receptyInHTML = document.querySelector('#recepty');
+let kategorieInHTML = document.querySelector('#kategorie');
 let receptFoto = document.querySelector('#recept-foto');
 let receptKategorie = document.querySelector('#recept-kategorie');
 let receptHodnoceni = document.querySelector('#recept-hodnoceni');
 let receptNazev = document.querySelector('#recept-nazev');
 let receptPopis = document.querySelector('#recept-popis');
+let kategorie = new Set();
+let inputy = [kategorieInHTML];
 
 function upravPole(recepty = [...receptyItems]) {
+  recepty = filtruj(recepty, kategorieInHTML.value);
+
   recepty.innerHTML = '';
   recepty.forEach((elm) => {
     nacitajZoznam(elm);
+    kategorie.add(elm.kategorie);
   })
 
   ukazRecept();
 };
 
 upravPole();
+
+function nastavKategorie() {
+  kategorie.forEach((jednaKategoria) => {
+    let option = document.createElement('option');
+    option.innerText = jednaKategoria;
+    kategorieInHTML.append(option);
+  });
+};
+
+nastavKategorie();
 /*1) Do prvku s id="recepty" vygeneruj z dat seznam všech receptů z naší "databáze".
 HTML vzor, jak vygenerovaný recept vypadá, je zakomentovaný v index.html.*/
 
@@ -44,8 +60,21 @@ function nacitajZoznam(elm) {
 /*2) Doplň hledání - v hlavičce odkomentuj pole pro hledání. Pri kliknutí na tlačítko Hledat
 by se měl seznam receptů vyfiltrovat podle hledaného slova.*/
 
+//function hladaj() {
+//
+//};
+
 
 // 3) Doplň filtrovanání receptů podle kategorie.
+
+function filtruj(receptyZoznam, vybrane) {
+  if (!receptyZoznam || !vybrane) 
+  return receptyZoznam;
+
+  return receptyZoznam.filter((recept) => {
+    return recept.kategorie === vybrane;
+  });
+};
 
 // 4) Doplň řazení receptů podle hodnocení.
 
