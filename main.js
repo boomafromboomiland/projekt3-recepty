@@ -1,18 +1,20 @@
 
 //Co je za úkol v tomto projektu:
 
-let receptyInHTML = document.querySelector('#recepty');
-let kategorieInHTML = document.querySelector('#kategorie');
 let receptFoto = document.querySelector('#recept-foto');
 let receptKategorie = document.querySelector('#recept-kategorie');
 let receptHodnoceni = document.querySelector('#recept-hodnoceni');
 let receptNazev = document.querySelector('#recept-nazev');
 let receptPopis = document.querySelector('#recept-popis');
 let kategorie = new Set();
-let inputy = [kategorieInHTML];
+let receptyInHTML = document.querySelector('#recepty');
+let kategorieInHTML = document.querySelector('#kategorie');
+let hladatInHTML = document.querySelector('#hledat')
+let inputy = [kategorieInHTML, hladatInHTML];
 
 function upravPole(recepty = [...receptyItems]) {
   recepty = filtruj(recepty, kategorieInHTML.value);
+  recepty = hladaj(recepty, hladatInHTML.value);
 
   receptyInHTML.innerHTML = '';
   recepty.forEach((elm) => {
@@ -70,9 +72,17 @@ function nacitajZoznam(elm) {
 /*2) Doplň hledání - v hlavičce odkomentuj pole pro hledání. Pri kliknutí na tlačítko Hledat
 by se měl seznam receptů vyfiltrovat podle hledaného slova.*/
 
-//function hladaj() {
-//
-//};
+function hladaj(receptyZoznam, vyraz) {
+  if (!receptyZoznam || !vyraz) return receptyZoznam;
+
+  vyraz = vyraz.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+    return receptyZoznam.filter((recept) => {
+      return recept.nadpis
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .match(new RegExp(vyraz, 'i'))
+    });
+};
 
 
 // 3) Doplň filtrovanání receptů podle kategorie.
