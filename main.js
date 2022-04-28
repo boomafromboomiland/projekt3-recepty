@@ -14,7 +14,7 @@ let inputy = [kategorieInHTML];
 function upravPole(recepty = [...receptyItems]) {
   recepty = filtruj(recepty, kategorieInHTML.value);
 
-  recepty.innerHTML = '';
+  receptyInHTML.innerHTML = '';
   recepty.forEach((elm) => {
     nacitajZoznam(elm);
     kategorie.add(elm.kategorie);
@@ -34,6 +34,16 @@ function nastavKategorie() {
 };
 
 nastavKategorie();
+
+function nastavInputy() {
+  inputy.forEach((input) => {
+    input.oninput = () => {
+      upravPole();
+    };
+  });
+};
+
+nastavInputy();
 /*1) Do prvku s id="recepty" vygeneruj z dat seznam všech receptů z naší "databáze".
 HTML vzor, jak vygenerovaný recept vypadá, je zakomentovaný v index.html.*/
 
@@ -68,8 +78,7 @@ by se měl seznam receptů vyfiltrovat podle hledaného slova.*/
 // 3) Doplň filtrovanání receptů podle kategorie.
 
 function filtruj(receptyZoznam, vybrane) {
-  if (!receptyZoznam || !vybrane) 
-  return receptyZoznam;
+  if (!receptyZoznam || !vybrane) return receptyZoznam;
 
   return receptyZoznam.filter((recept) => {
     return recept.kategorie === vybrane;
