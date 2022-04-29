@@ -24,7 +24,16 @@ function upravPole(recepty = [...receptyItems]) {
     kategorie.add(elm.kategorie);
   })
 
-  ukazRecept();
+  let ulozenyRecept = localStorage.getItem('vybranyReceptId');
+  if (!ulozenyRecept) {
+    if (recepty[0]) {
+      ulozenyRecept = recepty[0].id;
+    } 
+  } else {
+    localStorage.removeItem('vybranyReceptId');
+    }
+
+  ukazRecept(ulozenyRecept);
 };
 
 upravPole();
@@ -132,3 +141,6 @@ function ukazRecept(id = 0) {
 };
 
 // 6) Poslední vybraný recept ulož do Local Storage, aby se při novém otevření aplikace načetl.
+function ulozVyber(id) {
+  localStorage.setItem('vybranyReceptId', id);
+};
