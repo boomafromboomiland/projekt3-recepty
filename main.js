@@ -10,11 +10,13 @@ let kategorie = new Set();
 let receptyInHTML = document.querySelector('#recepty');
 let kategorieInHTML = document.querySelector('#kategorie');
 let hladatInHTML = document.querySelector('#hledat')
-let inputy = [kategorieInHTML, hladatInHTML];
+let inputy = [kategorieInHTML, hladatInHTML, radenieInHtml];
+let radenieInHtml = document.querySelector('#rezeni');
 
 function upravPole(recepty = [...receptyItems]) {
   recepty = filtruj(recepty, kategorieInHTML.value);
   recepty = hladaj(recepty, hladatInHTML.value);
+  recepty = zorad(recepty, radenieInHtml.value);
 
   receptyInHTML.innerHTML = '';
   recepty.forEach((elm) => {
@@ -96,6 +98,19 @@ function filtruj(receptyZoznam, vybrane) {
 };
 
 // 4) Doplň řazení receptů podle hodnocení.
+
+function zorad(receptyZoznam, vybrane) {
+  if (!receptyZoznam || !vybrane) return receptyZoznam;
+
+  return receptyZoznam.sort((a, b) => {
+    if (a.hodnoceni < b.hodnoceni) {
+      return vybrane == 1 ? 1 : -1
+    } else if (a.hodnoceni > b.hodnoceni) {
+      return vybrane == 1 ? -1 : 1
+    };
+    return 0;
+  });
+};
 
 /*5) Na recepty v seznamu by mělo jít kliknout a na pravé polovině, se objeví detail receptu.
 Doplň patričné údaje receptu do HTML prvků s ID recept-foto, recept-kategorie,
