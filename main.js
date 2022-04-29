@@ -10,8 +10,8 @@ let kategorie = new Set();
 let receptyInHTML = document.querySelector('#recepty');
 let kategorieInHTML = document.querySelector('#kategorie');
 let hladatInHTML = document.querySelector('#hledat')
+let radenieInHtml = document.querySelector('#razeni');
 let inputy = [kategorieInHTML, hladatInHTML, radenieInHtml];
-let radenieInHtml = document.querySelector('#rezeni');
 
 function upravPole(recepty = [...receptyItems]) {
   recepty = filtruj(recepty, kategorieInHTML.value);
@@ -104,6 +104,7 @@ function zorad(receptyZoznam, vybrane) {
 
   return receptyZoznam.sort((a, b) => {
     if (a.hodnoceni < b.hodnoceni) {
+      //[Podmienka] ? [What if true] : [what if false]
       return vybrane == 1 ? 1 : -1
     } else if (a.hodnoceni > b.hodnoceni) {
       return vybrane == 1 ? -1 : 1
